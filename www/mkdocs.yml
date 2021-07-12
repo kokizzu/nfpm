@@ -1,5 +1,6 @@
-site_name: NFPM
-site_description: NFPM is Not FPM - a simple deb, rpm and apk packager written in Go
+site_name: nFPM
+site_url: https://nfpm.goreleaser.com
+site_description: nFPM is not FPM - a simple deb, rpm and apk packager written in Go
 copyright: Made with ❤️ by GoReleaser contributors.
 repo_name: goreleaser/nfpm
 repo_url: https://github.com/goreleaser/nfpm
@@ -7,21 +8,34 @@ edit_uri: edit/master/www/docs/
 
 theme:
   name: material
+  custom_dir: docs/overrides
   language: en
   logo: static/avatar.png
   favicon: static/favicon.ico
   include_search_page: false
   search_index_only: true
+  palette:
+    - media: "(prefers-color-scheme: light)" # Light mode
+      scheme: default
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: dark)" # Dark mode
+      scheme: slate
+      primary: light blue
+      accent: indigo
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
 
 plugins:
   # disable temporarely because its freezing the page
   - search:
       prebuild_index: python
       lang:
-      - en
+        - en
   - minify:
       minify_html: true
-
 
 extra:
   social:
@@ -30,18 +44,24 @@ extra:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/goreleaser
 
-google_analytics:
-  - UA-106198408-1
-  - auto
-
 nav:
-- index.md
-- install.md
-- usage.md
-- configuration.md
-- tips.md
-- contributing.md
-- sponsors.md
+  - Home: index.md
+  - install.md
+  - usage.md
+  - Command Line Usage:
+      - nfpm: cmd/nfpm.md
+      - nfpm init: cmd/nfpm_init.md
+      - nfpm package: cmd/nfpm_package.md
+      - nfpm completion: cmd/nfpm_completion.md
+      - nfpm completion bash: cmd/nfpm_completion_bash.md
+      - nfpm completion fish: cmd/nfpm_completion_fish.md
+      - nfpm completion powershell: cmd/nfpm_completion_powershell.md
+      - nfpm completion zsh: cmd/nfpm_completion_zsh.md
+      - nfpm jsonschema: cmd/nfpm_jsonschema.md
+  - configuration.md
+  - tips.md
+  - contributing.md
+  - sponsors.md
 
 markdown_extensions:
   - admonition

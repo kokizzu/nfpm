@@ -1,84 +1,116 @@
 # Install
 
-You can install the pre-compiled binary (in several different ways),
-use Docker or compile from source.
+You can install the pre-compiled binary (in several different ways), use Docker or compile from source.
 
-Here are the steps for each of them:
+Bellow you can find the steps for each of them.
 
 ## Install the pre-compiled binary
 
-**homebrew tap** (only on macOS for now):
+### homebrew tap
 
-```console
-$ brew install goreleaser/tap/nfpm
+```sh
+brew install goreleaser/tap/nfpm
 ```
 
-**scoop**:
+### homebrew
 
-```console
-$ scoop bucket add goreleaser https://github.com/goreleaser/scoop-bucket.git
-$ scoop install nfpm
+```sh
+brew install nfpm
 ```
 
-**deb/rpm**:
+!!! info
+    The [formula in homebrew-core](https://github.com/Homebrew/homebrew-core/blob/master/Formula/nfpm.rb) might be slightly outdated.
+    Use our homebrew tap to always get the latest updates.
 
-Download the `.deb` or `.rpm` from the [releases page][releases] and
-install with `dpkg -i` and `rpm -i` respectively.
+### scoop
 
-**Shell script**:
-
-```console
-$ curl -sfL https://install.goreleaser.com/github.com/goreleaser/nfpm.sh | sh
+```sh
+scoop bucket add goreleaser https://github.com/goreleaser/scoop-bucket.git
+scoop install nfpm
 ```
 
-**manually**:
+### apt
 
-Download the pre-compiled binaries from the [releases page][releases] and
-copy to the desired location.
+```sh
+echo 'deb [trusted=yes] https://apt.fury.io/goreleaser/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list
+sudo apt update
+sudo apt install nfpm
+```
+
+### yum
+
+```sh
+echo '[goreleaser]
+name=GoReleaser
+baseurl=https://yum.fury.io/goreleaser/
+enabled=1
+gpgcheck=0' | sudo tee /etc/yum.repos.d/goreleaser.repo
+sudo yum install nfpm
+```
+
+### deb, apk and rpm packages
+
+Download the `.deb`, `.rpm` or `.apk` from the [releases page][releases] and install them with the appropriate tools.
+
+### shell script
+
+```sh
+curl -sfL https://install.goreleaser.com/github.com/goreleaser/nfpm.sh | sh
+```
+
+### go install
+
+```sh
+go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
+```
+
+### manually
+
+Download the pre-compiled binaries from the [releases page][releases] and copy them to the desired location.
 
 ## Running with Docker
 
 You can also use it within a Docker container. To do that, you'll need to
 execute something more-or-less like the following:
 
-```console
-$ docker run --rm \
-  -v $PWD:/tmp/pkg \
-  goreleaser/nfpm pkg --config /tmp/pkg/foo.yml --target /tmp/pkg/foo.rpm
+```sh
+docker run --rm -v $PWD:/tmp/pkg goreleaser/nfpm package \
+	--config /tmp/pkg/foo.yml \
+	--target /tmp \
+	--packager deb
 ```
-
-[releases]: https://github.com/goreleaser/nfpm/releases
 
 ## Compiling from source
 
 Here you have two options:
 
-If you want to contribute to the project, please follow the
-steps on our [contributing guide](/contributing).
+If you want to contribute to the project, please follow the steps on our [contributing guide](/contributing).
 
 If you just want to build from source for whatever reason, follow these steps:
 
-**Clone:**
+**clone:**
 
-```console
-$ git clone https://github.com/goreleaser/nfpm
-$ cd nfpm
+```sh
+git clone https://github.com/goreleaser/nfpm
+cd nfpm
 ```
 
-**Get the dependencies:**
+**get the dependencies:**
 
-```console
-$ go mod tidy
+```sh
+go mod tidy
 ```
 
-**Build:**
+**build:**
 
-```console
-$ go build -o nfpm cmd/nfpm/main.go
+```sh
+go build -o nfpm ./cmd/nfpm
 ```
 
-**Verify it works:**
+**verify it works:**
 
-```console
-$ ./nfpm --version
+```sh
+./nfpm --version
 ```
+
+[releases]: https://github.com/goreleaser/nfpm/releases

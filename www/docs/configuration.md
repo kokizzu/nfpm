@@ -19,6 +19,12 @@ platform: linux
 # This will expand any env var you set in the field, eg version: v${SEMVER}
 version: v1.2.3
 
+# Version Schema allows you to specify how to parse the version String.
+# Default is `semver`
+#   `semver` parse the version string as a valid semver version
+#   `none` skip trying to parse the version string and just use what is passed in
+version_schema: semver
+
 # Version Epoch.
 # Default is extracted from `version` if it is semver compatible.
 epoch: 2
@@ -284,5 +290,22 @@ apk:
 
 Templating is not and will not be supported.
 
-If you really need it, you can build on top of NFPM, use `envsubst`, `jsonnet`
+If you really need it, you can build on top of nFPM, use `envsubst`, `jsonnet`
 or apply some other templating on top of it.
+
+
+## JSON Schema
+
+nFPM also has a [jsonschema][] file which you can use to have better editor support:
+
+```
+https://nfpm.goreleaser.com/schema.json
+```
+
+You can also generate it for your specific version using the [`nfpm jsonschema`][schema] command.
+
+Note that it is in early stages.
+Any help and/or feedback is greatly appreciated!
+
+[jsonschema]: http://json-schema.org/draft/2020-12/json-schema-validation.html
+[schema]: /cmd/nfpm_jsonschema/
